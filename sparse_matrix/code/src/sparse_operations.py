@@ -109,12 +109,11 @@ def subtract(matrix_a, matrix_b):
     return [[row, col, val] for (row, col), val in result.items() if val != 0]
 
 def display(matrix, label="Matrix"):
-    print("-" * 40)
     for entry in matrix:
         print(f"  [{entry[0]}, {entry[1]}] = {entry[2]}")
     print("-" * 40)
 
-def process_matrices(file_path, json_file="csr_matrices.json", force_rebuild=False):
+def process_matrices(file_path, json_file="csr_matrices.json", force_rebuild=False, num_operations=3):
     if not os.path.exists(json_file) or force_rebuild:
         print(f"Reading CSR entries")
         csr_entries = read_data(file_path)
@@ -131,7 +130,7 @@ def process_matrices(file_path, json_file="csr_matrices.json", force_rebuild=Fal
     if len(matrix_ids) < 2:
         return "Not enough matrices"
 
-    for i in range(len(matrix_ids) // 2):
+    for i in range(min(num_operations, len(matrix_ids) // 2)):
         if len(matrix_ids) < 2:
             print("Not enough matrices for operation")
             break
@@ -169,7 +168,7 @@ if __name__ == "__main__":
     force_rebuild = "--force" in sys.argv
 
     try:
-        result = process_matrices(file_path, json_file, force_rebuild)
+        result = process_matrices(file_path, json_file, force_rebuild, num_operations=3)
         print(f"\nFinal result: {result}")
     except FileNotFoundError:
         print(f"File {file_path} not found. Please specify path to file.")
