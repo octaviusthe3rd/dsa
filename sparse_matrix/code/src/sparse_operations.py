@@ -49,13 +49,6 @@ def load_json(json_file="csr_matrices.json"):
     
     return matrices_dict
 
-def transpose(matrix):
-    transposed = []
-    for entry in matrix:
-        row, col, value = entry
-        transposed.append([col, row, value])
-    return transposed
-
 def multiply(matrix_a, matrix_b):
     b_dict = {}
     for row, col, val in matrix_b:
