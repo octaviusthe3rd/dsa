@@ -1,7 +1,6 @@
 import json
 import random
 import os
-import time
 import sys
 
 def read_data(data_file):
